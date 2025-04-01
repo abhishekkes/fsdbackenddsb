@@ -6,11 +6,12 @@ const Register = () => {
         const name = e.target.name.value;
         const age = e.target.age.value;
         const users = {name,age}
-        await axios.post('https://fsdbackenddsb.onrender.com/users',users )
+        await axios.post('http://localhost:9000/users',users )
         alert('User registered Successfully')
     }
   return (
     <div>
+      <h1>Register User</h1>
       <form onSubmit={handleregister}>
         Name<input type="text" placeholder="Name" name="name" required/>
         Age<input type="number" placeholder="Age" name="age" required/>
