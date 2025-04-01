@@ -1,7 +1,6 @@
 const express=require('express')
 const cors=require('cors')
 const fs=require('fs/promises');
-const { escape } = require('querystring');
 const app=express()
 let users=[];
 app.use(cors())
