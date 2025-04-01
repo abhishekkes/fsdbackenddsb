@@ -7,7 +7,7 @@ const View = () => {
         handleview();
     },[])
     const handleview= async () => {
-        const res=await axios.get('http://localhost:9000/users');
+        const res=await axios.get('https://fsdbackenddsb.onrender.com/users');
         setUsers(res.data);
         console.log(users);
     }
