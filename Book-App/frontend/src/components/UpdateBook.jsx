@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import './UpdateBook.css';
 
 const UpdateBook = () => {
   const [books, setBooks] = useState([]);
@@ -11,7 +12,6 @@ const UpdateBook = () => {
     image: ''
   });
 
-  // Fetch books on mount
   useEffect(() => {
     fetchBooks();
   }, []);
@@ -51,7 +51,7 @@ const UpdateBook = () => {
     try {
       await axios.put(`https://book-app-31ms.onrender.com/books/${selectedBookId}`, formData);
       alert('Book updated successfully');
-      fetchBooks(); // Refresh list
+      fetchBooks();
     } catch (error) {
       console.error(error);
       alert('Error updating book');
@@ -59,47 +59,47 @@ const UpdateBook = () => {
   };
 
   return (
-    <div>
+    <div className="update-book-container">
       <h2>Update Book</h2>
-
       <h4>Select a book to update:</h4>
-      <ul>
+      <ul className="book-list">
         {books.map(book => (
           <li key={book._id}>
-            <strong>{book.title}</strong> by {book.author}{' '}
+            <strong>{book.title}</strong> by {book.author}
             <button onClick={() => handleSelect(book._id)}>Edit</button>
           </li>
         ))}
       </ul>
 
       {selectedBookId && (
-        <form onSubmit={handleUpdate} style={{ marginTop: '20px' }}>
+        <form onSubmit={handleUpdate} className="update-book-form">
           <input
             name="title"
             value={formData.title}
             onChange={handleChange}
             placeholder="Title"
             required
-          /><br /><br />
+          />
           <input
             name="author"
             value={formData.author}
             onChange={handleChange}
             placeholder="Author"
             required
-          /><br /><br />
+          />
           <input
             name="date"
+            type="date"
             value={formData.date}
             onChange={handleChange}
             placeholder="Publish Date"
-          /><br /><br />
+          />
           <input
             name="image"
             value={formData.image}
             onChange={handleChange}
             placeholder="Image URL"
-          /><br /><br />
+          />
           <button type="submit">Update Book</button>
         </form>
       )}

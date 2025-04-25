@@ -1,38 +1,39 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import './ViewBook.css';
+
 const ViewBook = () => {
   const [books, setBooks] = useState([]);
-  useEffect(()=>{
-    handleview();
-  },[])
-  const handleview = async () => {
+
+  useEffect(() => {
+    handleView();
+  }, []);
+
+  const handleView = async () => {
     try {
       const res = await axios.get('https://book-app-31ms.onrender.com/books');
       setBooks(res.data);
+    } catch (err) {
+      console.log(err);
+      alert('Failed to fetch books');
     }
-    catch (err) {
-      console.log(err)
-    }
-  }
-  
+  };
+
   return (
-    <div>
-      <h1>View Book Details</h1>
-      
-      <div style={{display:'flex',flexWrap: 'wrap',gap: "20px"}}>
-        {
-          books.map((book)=>(
-            <div key={book._id}>
-              <img src={book.image} style={{border: '1px solid green',borderRadius: '15px',width: '250px',height: '300px'}} />
-              <h3>{book.title}</h3>
-              <h2>{book.author}</h2>
-              <h2>{book.date}</h2>
-            </div>
-          ))
-        }
+    <div className="view-book-container">
+      <h1>📚 View Book Details</h1>
+      <div className="book-grid">
+        {books.map((book) => (
+          <div className="book-card" key={book._id}>
+            <img src={book.image} alt={book.title} />
+            <h3>{book.title}</h3>
+            <p><strong>Author:</strong> {book.author}</p>
+            <p><strong>Date:</strong> {book.date}</p>
+          </div>
+        ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ViewBook
+export default ViewBook;
