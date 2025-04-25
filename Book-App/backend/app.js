@@ -67,6 +67,18 @@ app.get('/search', async (req, res) => {
     }
 });
 
+app.delete('/books/:id', async (req, res) => {
+    try {
+      const book = await Book.findByIdAndDelete(req.params.id);
+      if (!book) return res.status(404).send('Book not found');
+      res.send('Book deleted successfully');
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Server error');
+    }
+  });
+  
+
 
 app.put('/books/:id',async (req,res)=>{
     const book=await Book.findByIdAndUpdate(req.params.id,req.body)
@@ -74,6 +86,8 @@ app.put('/books/:id',async (req,res)=>{
         return res.status(404).send('Book Not Found')
     res.json(book)
 })
+
+
 app.listen(9000,()=>{
     console.log('server is running on port 9000')
 })
